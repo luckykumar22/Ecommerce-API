@@ -1,12 +1,16 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://121.0.0.1:27017/Ecom-API')
-const db = mongoose.connection;
-
-db.on("error", console.error.bind(console, "Error connecting server"));
-
-db.once("open", function () {
-  console.log("connected to database :: mongo db");
+// connecting mongoose to its default server and ecommerceDB
+mongoose.connect('mongodb+srv://admin22:tabtab123@cluster0.9mlsgec.mongodb.net/ecom-api?retryWrites=true&w=majority', {
+    useNewUrlParser: true
 });
 
-module.exports=db;
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, "Error connecting to MongoDB"));
+
+db.once('open', function(){
+    console.log('Connected to Database :: MongoDB');
+});
+
+module.exports = db;

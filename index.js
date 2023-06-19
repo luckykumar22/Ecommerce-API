@@ -1,24 +1,18 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const port = 8000;
+// importing required packages
+const express = require('express');
+const bodyParser = require('body-parser');
+const db = require('./config/mongoose');
 
+// initializing express
 const app = express();
-const db = require("./config/mongoose");
-const Routes = "./routes/index.js";
 
-// to read form data
-app.use(express.urlencoded);
+// using body parser to parse over the request body
+app.use(bodyParser.urlencoded({extended: true}));
 
-app.set("view engine", "ejs");
-app.set("views", "./");
+// using routes
+app.use('/products', require('./routes/products'));
 
-//routes
-app.use("/", Routes);
-
-app.listen(port, function (err) {
-  if (err) {
-    console.error("Error in setting up server");
-    return;
-  }
-  console.log("Server up and running on port:", port);
+// starting the server
+app.listen(3000, function(){
+    console.log('API is live on http://localhost:3000/products');
 });
